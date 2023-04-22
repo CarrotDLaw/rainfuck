@@ -21,7 +21,7 @@ pub enum InterpreterError {
   StdinError(std::io::Error),
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 enum RawCode {
   PtrIncrement,
   PtrDecrement,
@@ -33,7 +33,6 @@ enum RawCode {
   LoopEnd,
 }
 
-#[derive(Debug)]
 enum OpCode {
   PtrIncrement,
   PtrDecrement,
