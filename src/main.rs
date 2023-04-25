@@ -10,10 +10,10 @@ struct Args {
 
 fn main() {
   let args = Args::parse();
-  let source_code = fs::read_to_string(&args.source_path)
-    .expect(&InterpreterError::SourcePathError(args.source_path).to_string());
-
-  Computer::new().interpreter(&source_code).unwrap();
+  match fs::read_to_string(&args.source_path) {
+    Ok(source_code) => Computer::new().interpreter(&source_code).unwrap(),
+    Err(_) => eprintln!("{}", InterpreterError::SourcePathError(args.source_path)),
+  }
 
   // tests
 }

@@ -106,7 +106,7 @@ impl Computer {
             loop_stack += 1;
           }
           RawCode::LoopEnd => {
-            panic!(
+            eprintln!(
               "{}",
               InterpreterError::ParseCodeError(format!("loop ending at #{} has no start", i))
             )
@@ -131,7 +131,7 @@ impl Computer {
     }
 
     if loop_stack != 0 {
-      panic!(
+      eprintln!(
         "{}",
         InterpreterError::ParseCodeError(format!("loop starting at #{} has no end", loop_start))
       );
