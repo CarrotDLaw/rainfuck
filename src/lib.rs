@@ -59,7 +59,7 @@ impl Computer {
   }
 
   pub fn interpreter(&mut self, source_code: &str) -> Result<(), InterpreterError> {
-    let lexed_codes = self.lexer(&source_code);
+    let lexed_codes = self.lexer(source_code);
     let parsed_codes = self.parser(&lexed_codes);
 
     // println!("{:?}", lexed_codes);
@@ -86,7 +86,7 @@ impl Computer {
       .collect::<Vec<RawCode>>()
   }
 
-  fn parser(&mut self, raw_codes: &Vec<RawCode>) -> Vec<OpCode> {
+  fn parser(&mut self, raw_codes: &[RawCode]) -> Vec<OpCode> {
     let mut op_codes: Vec<OpCode> = Vec::new();
 
     let mut loop_start: usize = 0;
@@ -120,7 +120,7 @@ impl Computer {
 
             if loop_stack == 0 {
               op_codes.push(OpCode::Loop(
-                self.parser(&raw_codes[loop_start + 1..i].to_vec()),
+                self.parser(&raw_codes[loop_start + 1..i]),
               ));
             }
           }
@@ -179,7 +179,7 @@ impl Computer {
 
         OpCode::Loop(loop_body) => {
           while self.memory[self.pointer] != 0 {
-            self.execute(&loop_body)?;
+            self.execute(loop_body)?;
           }
         }
       }

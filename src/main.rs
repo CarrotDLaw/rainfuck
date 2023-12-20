@@ -1,5 +1,5 @@
 use clap::Parser;
-use rainfuck::{Computer, InterpreterError};
+use rainfuck::*;
 use std::fs;
 
 #[derive(Parser, Debug)]
@@ -14,6 +14,4 @@ fn main() {
     Ok(source_code) => Computer::new().interpreter(&source_code).unwrap(),
     Err(_) => eprintln!("{}", InterpreterError::SourcePathError(args.source_path)),
   }
-
-  // tests
 }
