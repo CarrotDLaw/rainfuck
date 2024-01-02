@@ -82,7 +82,7 @@ impl Computer {
         ']' => Some(RawCode::LoopEnd),
         _ => None,
       })
-      .collect::<Vec<RawCode>>::()
+      .collect::<Vec<RawCode>>()
   }
 
   fn parser(&mut self, raw_codes: &[RawCode]) -> Vec<OpCode> {
