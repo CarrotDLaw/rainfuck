@@ -21,7 +21,6 @@ pub enum InterpreterError {
   StdinError(std::io::Error),
 }
 
-#[derive(Clone)]
 enum RawCode {
   PtrIncrement,
   PtrDecrement,
@@ -83,7 +82,7 @@ impl Computer {
         ']' => Some(RawCode::LoopEnd),
         _ => None,
       })
-      .collect::<Vec<RawCode>>()
+      .collect::<Vec<RawCode>>::()
   }
 
   fn parser(&mut self, raw_codes: &[RawCode]) -> Vec<OpCode> {
@@ -119,9 +118,7 @@ impl Computer {
             loop_stack -= 1;
 
             if loop_stack == 0 {
-              op_codes.push(OpCode::Loop(
-                self.parser(&raw_codes[loop_start + 1..i]),
-              ));
+              op_codes.push(OpCode::Loop(self.parser(&raw_codes[loop_start + 1..i])));
             }
           }
 
